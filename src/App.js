@@ -1,25 +1,19 @@
-import { useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { fetchApiByDate } from './redux/home/home';
-import { BASE_URL, today } from './utils';
-import Details from './components/Details';
-import Home from './components/Home';
+import { Route, Routes } from 'react-router-dom';
+import Details from './pages/Details';
+import Home from './pages/Home';
+import Navigation from './components/Navigation';
+import NotFound from './components/NotFound';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchApiByDate(`${BASE_URL}${today()}`));
-  }, []);
-
   return (
-    <BrowserRouter>
+    <>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path=":id/:date" element={<Details />} />
+        <Route path="/*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 }
 
